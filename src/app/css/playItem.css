@@ -1,0 +1,23 @@
+.play{
+  padding: 16px 5px;
+  border-bottom: 1px dashed #bbb;
+  display: flex;
+}
+
+.play:hover{
+  background: #eee;
+}
+
+.player1{
+  flex-basis: 0;
+  flex-grow: 9;
+}
+
+.remove{
+  flex-basis: 0;
+  flex-grow: 1;
+  text-align: right;
+  color: #7f4cc1;
+  font-weight: bold;
+  cursor: pointer;
+}
