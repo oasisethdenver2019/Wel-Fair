@@ -12,7 +12,7 @@ module.exports =
 		"outputs": [
 			{
 				"name": "",
-				"type": "bytes32"
+				"type": "bool"
 			}
 		],
 		"payable": false,
@@ -59,31 +59,24 @@ module.exports =
 	},
 	{
 		"constant": false,
-		"inputs": [
-			{
-				"name": "_question",
-				"type": "uint256"
-			}
-		],
-		"name": "getQuestion",
-		"outputs": [
-			{
-				"name": "",
-				"type": "bytes32"
-			}
-		],
-		"payable": true,
-		"stateMutability": "payable",
-		"type": "function"
-	},
-	{
-		"constant": false,
 		"inputs": [],
 		"name": "killWorld",
 		"outputs": [],
 		"payable": false,
 		"stateMutability": "nonpayable",
 		"type": "function"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": false,
+				"name": "Newowner",
+				"type": "address"
+			}
+		],
+		"name": "ownershipTransfered",
+		"type": "event"
 	},
 	{
 		"anonymous": false,
@@ -103,16 +96,18 @@ module.exports =
 		"type": "event"
 	},
 	{
-		"anonymous": false,
-		"inputs": [
+		"constant": false,
+		"inputs": [],
+		"name": "payforQuestion",
+		"outputs": [
 			{
-				"indexed": false,
-				"name": "Newowner",
-				"type": "address"
+				"name": "",
+				"type": "bytes32"
 			}
 		],
-		"name": "ownershipTransfered",
-		"type": "event"
+		"payable": true,
+		"stateMutability": "payable",
+		"type": "function"
 	},
 	{
 		"constant": false,
@@ -210,6 +205,29 @@ module.exports =
 	},
 	{
 		"constant": true,
+		"inputs": [
+			{
+				"name": "_question",
+				"type": "uint256"
+			},
+			{
+				"name": "_player",
+				"type": "address"
+			}
+		],
+		"name": "getQuestion",
+		"outputs": [
+			{
+				"name": "",
+				"type": "bytes32"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
 		"inputs": [],
 		"name": "owner",
 		"outputs": [
@@ -235,6 +253,10 @@ module.exports =
 			{
 				"name": "score",
 				"type": "uint8"
+			},
+			{
+				"name": "player",
+				"type": "bool"
 			},
 			{
 				"name": "keyOne",

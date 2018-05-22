@@ -6,18 +6,14 @@ require('./css/addItem.css');
 var AddItem = createReactClass({
   render: function(){
     return(
-      <form id="add-todo" onSubmit={this.handleSubmit}>
-          <input type="text" required ref="newItem"/>
-          <input type="submit" value="Hit me" />
+      <form id="add-topay" onSubmit={this.handleSubmit}>
+          <input type="submit" value="Hit me to pay and play" />
       </form>
     );
   },
-
   handleSubmit: function(e){
     e.preventDefault();
-    this.props.onAdd(this.refs.newItem.value);
+    this.props.pay();
   }
-
 });
-
 module.exports = AddItem;

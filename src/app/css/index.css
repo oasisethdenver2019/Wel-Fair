@@ -1,26 +1,8 @@
-body{
-  background: #eee;
-  margin: 20px;
-  font-family: tahoma;
+#components-layout-demo-top .logo {
+  width: 120px;
+  height: 31px;
+  background: rgba(255,255,255,.2);
+  margin: 16px 24px 16px 0;
+  float: left;
 }
-
-#game-wrapper{
-  width: 80%;
-  margin: 0 auto;
-  background: #fff;
-  border-top: 3px solid #7f4cc1;
-  padding: 10px;
-  border-radius: 2px;
-  box-shadow: 1px 3px 5px rgba(0,0,0,0.2);
-  color: #333;
-}
-
-#game-wrapper p{
-  color: #777;
-  font-style: italic;
-}
-
-#todo-list ul{
-  list-style-type: none;
-  padding: 0;
-}
+ 

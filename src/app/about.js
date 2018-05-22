@@ -4,6 +4,8 @@ var ReactDOM = require('react-dom');
 import { Button, notification } from 'antd';
 import 'antd/dist/antd.min.css';
 
+import { Layout } from 'antd';
+const { Header, Footer, Sider, Content } = Layout;
 
 const openNotification = () => {
   notification.open({

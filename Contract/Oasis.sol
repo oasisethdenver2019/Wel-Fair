@@ -5,13 +5,13 @@ import "./Ownable.sol";
 contract Oasis is Ownable {
 	address public admin;
 	//uint fund_balance;
-	uint fee = 0.01 ether;
+	uint fee = 0.02 ether;
 
 	bytes32 question1 = "oasis";
 	bytes32 question2 = "ioi";
 	bytes32 answer1 = "0xggood";
 	bytes32 answer2 = "0xgbadd";
-	bytes32 finalanswer = "0xgwhatever";
+	bytes32 finalanswer = "0xletsdecentralization";
 
 	bytes32 firstKey = "QmRFgaFQuHrENKxbgVjWY1g";
 	bytes32 secondKey = "5oNMbQcGz9N6PvyhZePLEqG";
@@ -25,6 +25,7 @@ contract Oasis is Ownable {
 
 	struct player{
 	    uint8 score;
+        bool player;
 	    bytes32 keyOne;
 	    bytes32 keyTwo;
 	}
@@ -46,8 +47,6 @@ contract Oasis is Ownable {
 	     finalanswer= _finalanswer;
 	     firstKey = _key1;
 	     secondKey = _key2;
-
-
 	    // reset the score scoreBoard
 	    uint length = scoreBoard.length;
         for (uint i=0; i < length; i++) {
@@ -55,34 +54,40 @@ contract Oasis is Ownable {
         }
     }
 
-	function getQuestion(uint _question) public payable returns (bytes32) {
+	function payforQuestion() public payable returns (bytes32) {
 		require (msg.value == fee);
-		scoreBoard.push(msg.sender);
+        playerInfo[msg.sender].player = true;
+	}
+
+	function getQuestion(uint _question, address _player) public view returns (bytes32) {
+		require (playerInfo[_player].player == true);
 		if (_question == 1) {
-		    return question1;
+		    return question1 ;
 		}
 		if (_question == 2) {
-		    return question2;
+		    return question2 ;
 		}
 	}
 
-
-	function checkAndTakeOwnership (bytes32 _answer) public returns (bytes32) {
+	function checkAndTakeOwnership (bytes32 _answer) public returns (bool) {
 
 		if (_answer == answer1) {
 		   require(playerInfo[msg.sender].score == 0);
 		   playerInfo[msg.sender].score ++;
 		   playerInfo[msg.sender].keyOne = firstKey;
+		   return true;
 		}
 		else if (_answer == answer2) {
            require(playerInfo[msg.sender].score == 1);
            playerInfo[msg.sender].score ++;
 		   playerInfo[msg.sender].keyTwo = secondKey;
+		   return true;
 		}
         else if (_answer == finalanswer) {
            require(playerInfo[msg.sender].score == 2);
            admin = msg.sender;
            ownershipTransfered(msg.sender);
+           return true;
         }
 	}
 
