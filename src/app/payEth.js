@@ -3,7 +3,7 @@ var createReactClass = require('create-react-class');
 require('./css/addItem.css');
 
 
-var AddItem = createReactClass({
+var payEth = createReactClass({
   render: function(){
     return(
       <form id="add-topay" onSubmit={this.handleSubmit}>
@@ -16,4 +16,4 @@ var AddItem = createReactClass({
     this.props.pay();
   }
 });
-module.exports = AddItem;
+module.exports = payEth;

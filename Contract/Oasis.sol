@@ -78,8 +78,8 @@ contract Oasis is Ownable {
 		   return true;
 		}
 		else if (_answer == answer2) {
-           require(playerInfo[msg.sender].score == 1);
-           playerInfo[msg.sender].score ++;
+       require(playerInfo[msg.sender].score == 1);
+       playerInfo[msg.sender].score ++;
 		   playerInfo[msg.sender].keyTwo = secondKey;
 		   return true;
 		}
