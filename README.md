@@ -45,14 +45,12 @@ If you don't want to think the answer, that's fine too.
 
 Here are the questions and answers you can just try and see how everything is done.
 
-question1: oasis
-answer for that: good
+Question1: oasis Answer1:good
 
-question2: ioi
-answer for that: notgood
+Question2: ioi Answer2 : notgood
 
 final answer: letsgodecentralization
 
 and then you become admin, you can set new questions and answer and key for IPFS file.  
 
-Happy playing. 
+Happy playing.
