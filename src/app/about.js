@@ -8,7 +8,7 @@ var Link = require('react-router').Link;
 const _ = require('lodash');
 
 
-const contractAddress = '0x9b560a881bcbc6c9aa7c2f113a4877cbc695a829';
+const contractAddress = '0xdb343f9a9260e28bb11ae2ee10192ba1ff1a26ce';
 const abi = require('../../Contract/abi');
 const mycontract = web3.eth.contract(abi);
 const myContractInstance = mycontract.at(contractAddress);
@@ -118,7 +118,7 @@ class About extends Component{
         key2:'',
         scoreboard:[],
         scores:[],
-        data:[{address:"0x123"},{address:"0x321"}]
+        data:[]
       }
     }
 

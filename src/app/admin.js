@@ -7,7 +7,7 @@ import 'antd/dist/antd.min.css';
 var Link = require('react-router').Link;
 const _ = require('lodash');
 
-const contractAddress = '0x9b560a881bcbc6c9aa7c2f113a4877cbc695a829';
+const contractAddress = '0xdb343f9a9260e28bb11ae2ee10192ba1ff1a26ce';
 const abi = require('../../Contract/abi');
 const mycontract = web3.eth.contract(abi);
 const myContractInstance = mycontract.at(contractAddress);
@@ -82,14 +82,6 @@ class Admin extends Component{
        console.log(res);
        var admin = res;
        this.setState( {admin});
-    }.bind(this));
-
-      await myContractInstance.getKey(web3.eth.accounts[0],function(err,result){
-      var res = result;
-      //alert(res);
-      var key1 = web3.toAscii(res[0]);
-      var key2 = web3.toAscii(res[1]);
-      this.setState( {key1, key2});
     }.bind(this));
   }
 };

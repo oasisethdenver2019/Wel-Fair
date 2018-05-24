@@ -50,7 +50,8 @@ contract Oasis is Ownable {
 	    // reset the score scoreBoard
 	    uint length = scoreBoard.length;
         for (uint i=0; i < length; i++) {
-            playerInfo[scoreBoard[i]].score = 0;
+          delete  playerInfo[scoreBoard[i]];
+					delete scoreBoard[i];
         }
     }
 
@@ -89,7 +90,7 @@ contract Oasis is Ownable {
            require(playerInfo[msg.sender].score == 2);
            playerInfo[msg.sender].score ++;
            admin = msg.sender;
-           ownershipTransfered(msg.sender);
+           transferOwnership(admin);
            return true;
         }
 	}

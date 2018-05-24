@@ -4,24 +4,75 @@ var createReactClass = require('create-react-class');
 import { Form, Row, Col, Input, Button, Icon } from 'antd';
 const FormItem = Form.Item;
 
+const contractAddress = '0xdb343f9a9260e28bb11ae2ee10192ba1ff1a26ce';
+const abi = require('../../Contract/abi');
+const mycontract = web3.eth.contract(abi);
+const myContractInstance = mycontract.at(contractAddress);
+
+window.addEventListener('load', function() {
+        // Checking if Web3 has been injected by the browser (Mist/MetaMask)
+           if (typeof web3 !== 'undefined') {
+                // Use Mist/MetaMask's provider
+                window.web3 = new Web3(web3.currentProvider);
+            } else {
+                console.log('No web3? You should consider trying MetaMask!')
+                // fallback - use your fallback strategy (local node / hosted node + in-dapp id mgmt / fail)
+                window.web3 = new Web3(new Web3.providers.HttpProvider("https://localhost:8545"));
+        }
+      });
+
+
 class AdvancedSearchForm extends React.Component {
   constructor(props){
     super(props);
+    this.state = {
+    txStatus:'no transaction',
+    txHash: ''
+  }
     this.handleSearch = this.handleSearch.bind(this);
     this.handleReset = this.handleReset.bind(this);
   }
 
 
-  handleSearch(e){
+   handleSearch(e){
     e.preventDefault()
     this.props.form.validateFields({ force: false },(err, values) => {
       if (err){
         console.log(err)}
       else{
-      console.log('Received values of form: ', JSON.stringify(values));}
-      alert(values);
-    });
-  }
+        //console.log(web3.toHex(answer));
+        var getData = myContractInstance.gameSet.getData(web3.toHex(values[Object.keys(values)[0]]),
+                                                         web3.toHex(values[Object.keys(values)[1]]),
+                                                         web3.toHex(values[Object.keys(values)[2]]),
+                                                         web3.toHex(values[Object.keys(values)[3]]),
+                                                         web3.toHex(values[Object.keys(values)[4]]),
+                                                         web3.toHex(values[Object.keys(values)[5]]),
+                                                         web3.toHex(values[Object.keys(values)[6]]));
+         web3.eth.sendTransaction({from: web3.eth.accounts[0], to: contractAddress, data:getData},(err, res) =>{
+          this.setState({txHash:res, txStatus:'new transaction sent'});
+          console.log(res);
+        }).bind(this);
+      //console.log('Received values of form: ', values[Object.keys(values)[0]]);}
+    }
+  });
+}
+
+async componentWillMount() {
+  web3.eth.getTransactionReceipt(this.state.txHash, function(err, receipt){
+   if(!err){
+     if(receipt == null){
+       this.setState( {txStatus:'new transaction in process'});
+     }
+     else{
+     this.setState( {txStatus:'transaction: ' + this.state.txHash + ' is minded'});
+     console.log(JSON.stringify(receipt));
+     }
+   }
+   else{
+     this.setState( {txStatus:'no transaction'});
+   }
+ }.bind(this))}
+
 
   handleReset(){
     this.props.form.resetFields();
@@ -33,34 +84,6 @@ class AdvancedSearchForm extends React.Component {
     const { getFieldDecorator } = this.props.form;
     const children = [];
     const words = ['question1','question2','answer1','answer2','final answer','key1','key2']
-  //   children.push(
-  //   <Col span={8} key={1} style={{ display:'block'}}>
-  //   <FormItem label={'question1'}>
-  //   {getFieldDecorator(`field-${1}`, {
-  //     rules: [{
-  //       required: true,
-  //       message: 'Input something!',
-  //     }],
-  //   })(
-  //     <Input placeholder="placeholder" />
-  //   )}
-  //   </FormItem>
-  //   </Col>
-  //   )
-  //   children.push(
-  //   <Col span={8} key={2} style={{ display:'block'}}>
-  //   <FormItem label={'question2'}>
-  //   {getFieldDecorator(`field-${2}`, {
-  //     rules: [{
-  //       required: true,
-  //       message: 'Input something!',
-  //     }],
-  //   })(
-  //     <Input placeholder="placeholder" />
-  //   )}
-  //   </FormItem>
-  //   </Col>
-  // )
     for (let i = 0; i < 7; i++) {
       children.push(
         <Col span={8} key={i} style={{ display: 'block'}}>
@@ -89,10 +112,13 @@ class AdvancedSearchForm extends React.Component {
         <Row gutter={24}>{this.getFields()}</Row>
         <Row>
           <Col span={24} style={{ textAlign: 'right' }}>
-            <Button type="primary" htmlType="submit">Search</Button>
+            <Button type="primary" htmlType="submit">Submit</Button>
             <Button style={{ marginLeft: 8 }} onClick={this.handleReset}>
               Clear
             </Button>
+            <a style={{ marginLeft: 8, fontSize: 12 }}>
+            {this.state.txStatus}
+            </a>
           </Col>
         </Row>
       </Form>
