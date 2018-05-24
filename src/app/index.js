@@ -13,10 +13,12 @@ const Search = Input.Search;
 //var Playform = require('./playItem');
 var Payeth = require('./payEth');
 var About = require('./about');
+var Admin = require('./admin');
+
 require('./css/index.css');
 
 // Smart Contract
-const contractAddress = '0x2dd89b83cce7a68d2a1f65aff95c398c62efb769';
+const contractAddress = '0x9b560a881bcbc6c9aa7c2f113a4877cbc695a829';
 const abi = require('../../Contract/abi');
 const mycontract = web3.eth.contract(abi);
 const myContractInstance = mycontract.at(contractAddress);
@@ -42,6 +44,7 @@ class App extends Component{
       <Router history={browserHistory}>
         <Route path={"/"} component={GameComponent}></Route>
         <Route path={"/about"} component={About}></Route>
+        <Route path={"/admin"} component={Admin}></Route>
       </Router>
     );
   }
@@ -66,7 +69,7 @@ class GameComponent extends Component{
           this.setState( {txStatus:'no transaction'});
         }
       }.bind(this));
-    }.bind(this),15000);
+    }.bind(this),10000);
 
     return(
 
@@ -81,7 +84,7 @@ class GameComponent extends Component{
               >
                 <Menu.Item key="1"><Link to={"/about"}>Score Board</Link></Menu.Item>
                 <Menu.Item key="2">Main Game</Menu.Item>
-                <Menu.Item key="3">Admin</Menu.Item>
+                <Menu.Item key="3"><Link to={"/admin"}>Admin</Link></Menu.Item>
               </Menu>
           </Header>
             <Content style={{ padding: '0 50px' }}>

@@ -5,28 +5,33 @@ import { Button, notification, Layout, Menu, Breadcrumb, Input, List, Avatar, Ca
 const { Header, Content, Footer } = Layout;
 import 'antd/dist/antd.min.css';
 var Link = require('react-router').Link;
+const _ = require('lodash');
 
-// const data = [
-//   {
-//     title: 'Ant Design Title 1',
-//   },
-//   {
-//     title: 'Ant Design Title 2',
-//   },
-//   {
-//     title: 'Ant Design Title 3',
-//   },
-//   {
-//     title: 'Ant Design Title 4',
-//   },
-// ];
 
-const contractAddress = '0x2dd89b83cce7a68d2a1f65aff95c398c62efb769';
+const contractAddress = '0x9b560a881bcbc6c9aa7c2f113a4877cbc695a829';
 const abi = require('../../Contract/abi');
 const mycontract = web3.eth.contract(abi);
 const myContractInstance = mycontract.at(contractAddress);
 
 
+function parseJson(Resp){
+  const results = [];
+  var parameters = ['address','points'];
+  Object.keys(Resp).forEach((paramValues, paramIndex) => {
+    const paramName = parameters[paramIndex];
+    Resp[paramValues].forEach((paramValue, itemIndex) =>{
+      const item = _.merge({}, _.get(results, [itemIndex], {}));
+      if (paramIndex == 0){
+        item[paramName] = paramValue;
+      }
+      else if(paramIndex == 1){
+        item[paramName] = paramValue.c[0];
+      }
+      results[itemIndex] = item;
+    })
+  })
+  return results;
+}
 // metaMask listener
 window.addEventListener('load', function() {
         // Checking if Web3 has been injected by the browser (Mist/MetaMask)
@@ -42,13 +47,16 @@ window.addEventListener('load', function() {
 
 class About extends Component{
     render(){
-      var checkStatus = setTimeout(function(){
-        myContractInstance.getPlayerScore(web3.eth.accounts[0],function(err,result){
-           var res = result;
-          // alert(res);
-           this.setState( {score:res.s});
-        }.bind(this));
-     }.bind(this),15000);
+     //  var checkStatus = setTimeout(function(){
+     //    myContractInstance.getPlayerScore(web3.eth.accounts[0],function(err,result){
+     //       var res = result;
+     //       //alert(res);
+     //       //console.log(res);
+     //
+     //       this.setState( {score: res.c[0]});
+     //    }.bind(this));
+     // }.bind(this),15000);
+
         return(
 
           <Layout className="layout">
@@ -62,7 +70,7 @@ class About extends Component{
               >
                 <Menu.Item key="1">Score Board</Menu.Item>
                 <Menu.Item key="2"><Link to={"/"}>Main Game</Link></Menu.Item>
-                <Menu.Item key="3">Admin</Menu.Item>
+                <Menu.Item key="3"><Link to={"/admin"}>Admin</Link></Menu.Item>
               </Menu>
           </Header>
             <Content style={{ padding: '0 50px' }}>
@@ -77,16 +85,15 @@ class About extends Component{
               </Card>
               <br />
               <br />
-
-              <List
+        <List
                 itemLayout="horizontal"
                 dataSource={this.state.data}
                 renderItem={item => (
                   <List.Item>
                     <List.Item.Meta
-                      avatar={<Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />}
-                      title={item.title}
-                      description="Ant Design, a design language for background applications, is refined by Ant UED Team"
+                      avatar={<Avatar src="https://i.pinimg.com/236x/59/cb/10/59cb10c177662eaf625b2cb80da3d4dd.jpg" />}
+                      title={<a href={"https://rinkeby.etherscan.io/address/"+item.address}>{item.address}</a>}
+                      description={"this player has points of " + item.points}
                     />
                   </List.Item>
                 )}
@@ -101,6 +108,7 @@ class About extends Component{
 
         );
     }
+
     constructor(props){
       super(props);
       this.state = {
@@ -110,9 +118,37 @@ class About extends Component{
         key2:'',
         scoreboard:[],
         scores:[],
-        data:[{}]
+        data:[{address:"0x123"},{address:"0x321"}]
       }
     }
+
+  async componentWillMount() {
+       await myContractInstance.getPlayerScore(web3.eth.accounts[0],function(err,result){
+       var res = result;
+       //alert(res);
+       var score = res.c[0];
+       this.setState( {score});
+    }.bind(this));
+
+      await myContractInstance.getKey(web3.eth.accounts[0],function(err,result){
+      var res = result;
+      //alert(res);
+      var key1 = web3.toAscii(res[0]);
+      var key2 = web3.toAscii(res[1]);
+      this.setState( {key1, key2});
+   }.bind(this));
+
+     await myContractInstance.getAllscore(function(err,result){
+     var res = result;
+     //alert(res);
+     var answerInJson = parseJson(res);
+     // var key1 = web3.toAscii(res[0]);
+     // var key2 = web3.toAscii(res[1]);
+     var data = answerInJson;
+     this.setState( {data});
+  }.bind(this));
+
+  }
 };
 
 

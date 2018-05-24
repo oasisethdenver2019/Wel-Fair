@@ -9,9 +9,9 @@ contract Oasis is Ownable {
 
 	bytes32 question1 = "oasis";
 	bytes32 question2 = "ioi";
-	bytes32 answer1 = "0xggood";
-	bytes32 answer2 = "0xgbadd";
-	bytes32 finalanswer = "0xletsdecentralization";
+	bytes32 answer1 = "good";
+	bytes32 answer2 = "notgood";
+	bytes32 finalanswer = "letsgodecentralization";
 
 	bytes32 firstKey = "QmRFgaFQuHrENKxbgVjWY1g";
 	bytes32 secondKey = "5oNMbQcGz9N6PvyhZePLEqG";
@@ -56,7 +56,9 @@ contract Oasis is Ownable {
 
 	function payforQuestion() public payable returns (bytes32) {
 		require (msg.value == fee);
+
         playerInfo[msg.sender].player = true;
+        scoreBoard.push(msg.sender);
 	}
 
 	function getQuestion(uint _question, address _player) public view returns (bytes32) {
@@ -78,13 +80,14 @@ contract Oasis is Ownable {
 		   return true;
 		}
 		else if (_answer == answer2) {
-       require(playerInfo[msg.sender].score == 1);
-       playerInfo[msg.sender].score ++;
+           require(playerInfo[msg.sender].score == 1);
+           playerInfo[msg.sender].score ++;
 		   playerInfo[msg.sender].keyTwo = secondKey;
 		   return true;
 		}
         else if (_answer == finalanswer) {
            require(playerInfo[msg.sender].score == 2);
+           playerInfo[msg.sender].score ++;
            admin = msg.sender;
            ownershipTransfered(msg.sender);
            return true;
