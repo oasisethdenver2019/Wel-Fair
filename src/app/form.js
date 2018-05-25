@@ -1,9 +1,11 @@
+// React
 import React, {Component} from 'react';
 var ReactDOM = require('react-dom');
 var createReactClass = require('create-react-class');
 import { Form, Row, Col, Input, Button, Icon } from 'antd';
 const FormItem = Form.Item;
 
+// Smart Contract
 const contractAddress = '0xdb343f9a9260e28bb11ae2ee10192ba1ff1a26ce';
 const abi = require('../../Contract/abi');
 const mycontract = web3.eth.contract(abi);
@@ -52,7 +54,6 @@ class AdvancedSearchForm extends React.Component {
           this.setState({txHash:res, txStatus:'new transaction sent'});
           console.log(res);
         }).bind(this);
-      //console.log('Received values of form: ', values[Object.keys(values)[0]]);}
     }
   });
 }

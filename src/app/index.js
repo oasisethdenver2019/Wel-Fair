@@ -1,20 +1,19 @@
-// React
+// React config
 import React, {Component} from 'react';
 var ReactDOM = require('react-dom');
 var createReactClass = require('create-react-class');
 import { Router, Route, browserHistory, Link} from 'react-router';
-//design
+
+//design elements
 import { Layout,  Button, notification, Menu, Breadcrumb, Input} from 'antd';
 const { Header, Content, Footer } = Layout;
 import 'antd/dist/antd.min.css';
 const Search = Input.Search;
 
-// module require
-//var Playform = require('./playItem');
+// modules require
 var Payeth = require('./payEth');
 var About = require('./about');
 var Admin = require('./admin');
-
 require('./css/index.css');
 
 // Smart Contract
@@ -37,6 +36,7 @@ window.addEventListener('load', function() {
         }
       });
 
+
 // Routing
 class App extends Component{
   render() {
@@ -51,9 +51,10 @@ class App extends Component{
 };
 
 
-// Create component, initialization
+// Main game
 class GameComponent extends Component{
   render(){
+    // checking transactions realtime
      var checkTX = setTimeout(function(){
        web3.eth.getTransactionReceipt(this.state.txHash, function(err, receipt){
         if(!err){
@@ -137,7 +138,6 @@ class GameComponent extends Component{
       this.setState({txHash:res, txStatus:'new transaction sent'});
       console.log(res);
     });
-      // alert
   }
 
 

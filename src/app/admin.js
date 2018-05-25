@@ -1,6 +1,9 @@
+// React
 import React, {Component} from 'react';
 var createReactClass = require('create-react-class');
 var ReactDOM = require('react-dom');
+
+// Design
 import { Button, notification, Layout, Menu, Breadcrumb, Input, List, Avatar, Tooltip, Icon, Cascader, Select, Row, Col, Checkbox,AutoComplete } from 'antd';
 const { Header, Content, Footer } = Layout;
 import 'antd/dist/antd.min.css';

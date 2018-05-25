@@ -1,19 +1,22 @@
+// React
 import React, {Component} from 'react';
 var createReactClass = require('create-react-class');
 var ReactDOM = require('react-dom');
+
+// Design
 import { Button, notification, Layout, Menu, Breadcrumb, Input, List, Avatar, Card } from 'antd';
 const { Header, Content, Footer } = Layout;
 import 'antd/dist/antd.min.css';
 var Link = require('react-router').Link;
 const _ = require('lodash');
 
-
+// SmatContract
 const contractAddress = '0xdb343f9a9260e28bb11ae2ee10192ba1ff1a26ce';
 const abi = require('../../Contract/abi');
 const mycontract = web3.eth.contract(abi);
 const myContractInstance = mycontract.at(contractAddress);
 
-
+// Dataparsing
 function parseJson(Resp){
   const results = [];
   var parameters = ['address','points'];
@@ -32,6 +35,7 @@ function parseJson(Resp){
   })
   return results;
 }
+
 // metaMask listener
 window.addEventListener('load', function() {
         // Checking if Web3 has been injected by the browser (Mist/MetaMask)
@@ -45,18 +49,9 @@ window.addEventListener('load', function() {
         }
       });
 
+
 class About extends Component{
     render(){
-     //  var checkStatus = setTimeout(function(){
-     //    myContractInstance.getPlayerScore(web3.eth.accounts[0],function(err,result){
-     //       var res = result;
-     //       //alert(res);
-     //       //console.log(res);
-     //
-     //       this.setState( {score: res.c[0]});
-     //    }.bind(this));
-     // }.bind(this),15000);
-
         return(
 
           <Layout className="layout">
@@ -125,14 +120,12 @@ class About extends Component{
   async componentWillMount() {
        await myContractInstance.getPlayerScore(web3.eth.accounts[0],function(err,result){
        var res = result;
-       //alert(res);
        var score = res.c[0];
        this.setState( {score});
     }.bind(this));
 
       await myContractInstance.getKey(web3.eth.accounts[0],function(err,result){
       var res = result;
-      //alert(res);
       var key1 = web3.toAscii(res[0]);
       var key2 = web3.toAscii(res[1]);
       this.setState( {key1, key2});
@@ -140,10 +133,7 @@ class About extends Component{
 
      await myContractInstance.getAllscore(function(err,result){
      var res = result;
-     //alert(res);
      var answerInJson = parseJson(res);
-     // var key1 = web3.toAscii(res[0]);
-     // var key2 = web3.toAscii(res[1]);
      var data = answerInJson;
      this.setState( {data});
   }.bind(this));
