@@ -14,6 +14,7 @@ const Search = Input.Search;
 var Payeth = require('./payEth');
 var About = require('./about');
 var Admin = require('./admin');
+var Ipfs = require('./ipfs');
 require('./css/index.css');
 
 // Smart Contract
@@ -45,6 +46,7 @@ class App extends Component{
         <Route path={"/"} component={GameComponent}></Route>
         <Route path={"/about"} component={About}></Route>
         <Route path={"/admin"} component={Admin}></Route>
+        <Route path={"/ipfs"} component={Ipfs}></Route>
       </Router>
     );
   }
@@ -86,6 +88,7 @@ class GameComponent extends Component{
                 <Menu.Item key="1"><Link to={"/about"}>Score Board</Link></Menu.Item>
                 <Menu.Item key="2">Main Game</Menu.Item>
                 <Menu.Item key="3"><Link to={"/admin"}>Admin</Link></Menu.Item>
+                <Menu.Item key="4"><Link to={"/ipfs"}>Key Maker</Link></Menu.Item>
               </Menu>
           </Header>
             <Content style={{ padding: '0 50px' }}>

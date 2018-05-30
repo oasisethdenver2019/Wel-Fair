@@ -66,6 +66,8 @@ class About extends Component{
                 <Menu.Item key="1">Score Board</Menu.Item>
                 <Menu.Item key="2"><Link to={"/"}>Main Game</Link></Menu.Item>
                 <Menu.Item key="3"><Link to={"/admin"}>Admin</Link></Menu.Item>
+                <Menu.Item key="4"><Link to={"/ipfs"}>Key Maker</Link></Menu.Item>
+
               </Menu>
           </Header>
             <Content style={{ padding: '0 50px' }}>

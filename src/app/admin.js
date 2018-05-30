@@ -45,6 +45,7 @@ class Admin extends Component{
                 <Menu.Item key="1"><Link to={"/about"}>Score Board</Link></Menu.Item>
                 <Menu.Item key="2"><Link to={"/"}>Main Game</Link></Menu.Item>
                 <Menu.Item key="3">Admin</Menu.Item>
+                <Menu.Item key="4"><Link to={"/ipfs"}>Key Maker</Link></Menu.Item>
               </Menu>
           </Header>
             <Content style={{ padding: '0 50px' }}>
