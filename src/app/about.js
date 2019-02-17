@@ -9,6 +9,8 @@ const { Header, Content, Footer } = Layout;
 import 'antd/dist/antd.min.css';
 var Link = require('react-router').Link;
 const _ = require('lodash');
+var Payeth = require('./payEth');
+
 
 // SmatContract
 const contractAddress = '0x3e6eba20c93cbc2ba817b2cfa520044eea345e6e';
@@ -23,6 +25,7 @@ function parseJson(Resp){
   var parameters = ['task','location','incent','owner','status'];//web3.toAscii(res)
   Object.keys(Resp).forEach((paramValues, paramIndex) => {
     const paramName = parameters[paramIndex];
+    var counter = 0;
     Resp[paramValues].forEach((paramValue, itemIndex) =>{
       const item = _.merge({}, _.get(results, [itemIndex], {}));
       if (paramIndex == 0){
@@ -41,10 +44,13 @@ function parseJson(Resp){
       }
 
       else if(paramIndex == 4){
-        if (paramValue.c[0] == 0){item[paramName] = "open";}
-        if (paramValue.c[0] == 1){item[paramName] = "in progress";}
-        if (paramValue.c[0] == 2){item[paramName] = "closed";}
+        counter += 1;
+        if (paramValue.c[0] == 0){item[paramName] = "open"+ counter.toString();}
+        if (paramValue.c[0] == 1){item[paramName] = "in progress"+ counter.toString();}
+        if (paramValue.c[0] == 2){item[paramName] = "closed"+ counter.toString();}
       }
+
+
 
       results[itemIndex] = item;
     })
@@ -90,25 +96,24 @@ class About extends Component{
               <Breadcrumb style={{ margin: '16px 0' }}>
               </Breadcrumb>
               <div style={{ background: '#fff', padding: 24, minHeight: 280 }}>
-              {/* <Card title="Your game record" style={{ width: 300 }}>
-                <p>Your score is: {this.state.score}</p>
-                <p>Your first key is: {this.state.key1}</p>
-                <p>Your second key is: {this.state.key2}</p>
-                <p>Your account is: {this.state.account}</p>
-              </Card> */}
+
               <br />
               <br />
+
         <List
                 itemLayout="horizontal"
                 dataSource={this.state.data}
+
                 renderItem={item => (
                   <List.Item>
                     <List.Item.Meta
+                      
                       avatar={<Avatar src="https://i.pinimg.com/236x/59/cb/10/59cb10c177662eaf625b2cb80da3d4dd.jpg" />}
                       title={<a href={"https://rinkeby.etherscan.io/address/"+item.address}>{"Location of the bounty is "+ web3.toAscii(item.location) + " The Bounty task is: " + web3.toAscii(item.task) }</a>}
                       description={ " The Bounty responser is "+ item.owner }
                     />
-                    {"the status is " + item.status }
+                    <Button type="primary" onClick={this.getsecondQuestion}>{"the status is " + item.status  }</Button>
+
                     
                   </List.Item>
                 )}
@@ -126,6 +131,8 @@ class About extends Component{
 
     constructor(props){
       super(props);
+      this.getfirstQuestion = this.getfirstQuestion.bind(this);
+
       this.state = {
         score:0,
         account: web3.eth.accounts[0],
@@ -138,18 +145,6 @@ class About extends Component{
     }
 
   async componentWillMount() {
-    //    await myContractInstance.getPlayerScore(web3.eth.accounts[0],function(err,result){
-    //    var res = result;
-    //    var score = res.c[0];
-    //    this.setState( {score});
-    // }.bind(this));
-
-  //     await myContractInstance.getKey(web3.eth.accounts[0],function(err,result){
-  //     var res = result;
-  //     var key1 = web3.toAscii(res[0]);
-  //     var key2 = web3.toAscii(res[1]);
-  //     this.setState( {key1, key2});
-  //  }.bind(this));
 
      await myContractInstance.getAllbounty(function(err,result){
      var res = result;
@@ -159,6 +154,14 @@ class About extends Component{
   }.bind(this));
 
   }
+
+  async getfirstQuestion(info){
+    await myContractInstance.getQuestion(1,web3.eth.accounts[0],function(err,result){
+
+    })
+  }
+
+
 };
 
 

@@ -7,7 +7,7 @@ var payEth = createReactClass({
   render: function(){
     return(
       <form id="add-topay" onSubmit={this.handleSubmit}>
-          <input type="submit" value="Hit me to pay and play" />
+          <input type="submit" value="take" />
       </form>
     );
   },
