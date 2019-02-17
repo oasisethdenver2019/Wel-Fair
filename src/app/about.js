@@ -4,7 +4,7 @@ var createReactClass = require('create-react-class');
 var ReactDOM = require('react-dom');
 
 // Design
-import { Button, notification, Layout, Menu, Breadcrumb, Input, List, Avatar, Card } from 'antd';
+import { Search,Button, notification, Layout, Menu, Breadcrumb, Input, List, Avatar, Card,InputNumber} from 'antd';
 const { Header, Content, Footer } = Layout;
 import 'antd/dist/antd.min.css';
 var Link = require('react-router').Link;
@@ -119,8 +119,12 @@ class About extends Component{
                 )}
               />
               </div>
+              {/* <Search placeholder="input the bounty" enterButton="Submit" size="large" onSearch={value => this.getsecondQuestion(value)}/> */}
+
+              {/* <InputNumber min={1} max={10} defaultValue={3} onChange={this.getsecondQuestion} />, */}
+
             </Content>
-              <p>   rules: </p>
+              <p>   Input number to commit your responsibility: </p>
             <Footer style={{ textAlign: 'center' }}>
               Well Fare for our city
             </Footer>
@@ -155,10 +159,8 @@ class About extends Component{
 
   }
 
-  async getfirstQuestion(info){
-    await myContractInstance.getQuestion(1,web3.eth.accounts[0],function(err,result){
-
-    })
+  async getfirstQuestion(value){
+      console.log("clicked");
   }
 
 

@@ -103,9 +103,9 @@ class GameComponent extends Component{
               <p>click to get first questions</p>
               <Button type="primary" onClick={this.getsecondQuestion}>See second question</Button>
               <p>click to get second questions</p>
-              <br />
-              <Search placeholder="input answer1" enterButton="Submit answer for first question" size="large" onSearch={value => this.onSubmit(value)}/>
-              <br />
+              <br /> */}
+              <Search placeholder="input number" enterButton="Submit to take bounty" size="large" onSearch={value => this.onSubmit(value)}/>
+              {/* <br />
               <br />
               <Search placeholder="input answer2" enterButton="Submit answer for second question" size="large" onSearch={value => this.onSubmit(value)}/>
               <br />
@@ -167,12 +167,20 @@ class GameComponent extends Component{
 
 
     async onSubmit(answer){
-      console.log(web3.toHex(answer));
-      var getData = myContractInstance.checkAndTakeOwnership.getData(web3.toHex(answer));
+      // console.log(web3.toHex(answer));
+      // var getData = myContractInstance.checkAndTakeOwnership.getData(web3.toHex(answer));
+      // await web3.eth.sendTransaction({from: web3.eth.accounts[0], to: contractAddress, data:getData},(err, res) =>{
+      //   this.setState({txHash:res, txStatus:'new transaction sent'});
+      //   console.log(res);
+      // });    
+      
+      var getData = myContractInstance.takeBounty.getData(Number(answer));
       await web3.eth.sendTransaction({from: web3.eth.accounts[0], to: contractAddress, data:getData},(err, res) =>{
         this.setState({txHash:res, txStatus:'new transaction sent'});
         console.log(res);
       });
+
+
     }
 };
 
