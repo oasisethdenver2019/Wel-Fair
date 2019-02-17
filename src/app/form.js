@@ -84,8 +84,8 @@ async componentWillMount() {
   getFields() {
     const { getFieldDecorator } = this.props.form;
     const children = [];
-    const words = ['question1','question2','answer1','answer2','final answer','key1','key2']
-    for (let i = 0; i < 7; i++) {
+    const words = ['Describtion of Task','Location','Price to Incentive'];
+    for (let i = 0; i < 3; i++) {
       children.push(
         <Col span={8} key={i} style={{ display: 'block'}}>
           <FormItem label={words[i]}>
@@ -95,7 +95,7 @@ async componentWillMount() {
                 message: 'Input something!',
               }],
             })(
-              <Input placeholder="placeholder" />
+              <Input placeholder="Goof will" />
             )}
           </FormItem>
         </Col>

@@ -63,10 +63,10 @@ class About extends Component{
                 defaultSelectedKeys={['1']}
                 style={{ lineHeight: '64px' }}
               >
-                <Menu.Item key="1">Score Board</Menu.Item>
-                <Menu.Item key="2"><Link to={"/"}>Main Game</Link></Menu.Item>
-                <Menu.Item key="3"><Link to={"/admin"}>Admin</Link></Menu.Item>
-                <Menu.Item key="4"><Link to={"/ipfs"}>Key Maker</Link></Menu.Item>
+                <Menu.Item key="1">Task Status</Menu.Item>
+                <Menu.Item key="2"><Link to={"/"}>Dash Board</Link></Menu.Item>
+                <Menu.Item key="3"><Link to={"/admin"}>Submit Task</Link></Menu.Item>
+                <Menu.Item key="4"><Link to={"/ipfs"}>Validate</Link></Menu.Item>
 
               </Menu>
           </Header>
@@ -74,12 +74,12 @@ class About extends Component{
               <Breadcrumb style={{ margin: '16px 0' }}>
               </Breadcrumb>
               <div style={{ background: '#fff', padding: 24, minHeight: 280 }}>
-              <Card title="Your game record" style={{ width: 300 }}>
+              {/* <Card title="Your game record" style={{ width: 300 }}>
                 <p>Your score is: {this.state.score}</p>
                 <p>Your first key is: {this.state.key1}</p>
                 <p>Your second key is: {this.state.key2}</p>
                 <p>Your account is: {this.state.account}</p>
-              </Card>
+              </Card> */}
               <br />
               <br />
         <List
@@ -99,7 +99,7 @@ class About extends Component{
             </Content>
               <p>   rules: </p>
             <Footer style={{ textAlign: 'center' }}>
-              Ready Player One -- Oasis
+              Well Fare for our city
             </Footer>
         </Layout>
 

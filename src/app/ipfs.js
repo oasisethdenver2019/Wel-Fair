@@ -45,10 +45,10 @@ class Admin extends Component{
                 defaultSelectedKeys={['4']}
                 style={{ lineHeight: '64px' }}
               >
-                <Menu.Item key="1"><Link to={"/about"}>Score Board</Link></Menu.Item>
-                <Menu.Item key="2"><Link to={"/"}>Main Game</Link></Menu.Item>
-                <Menu.Item key="3"><Link to={"/admin"}>Admin</Link></Menu.Item>
-                <Menu.Item key="4">Key Maker</Menu.Item>
+                <Menu.Item key="1"><Link to={"/about"}>Task Status</Link></Menu.Item>
+                <Menu.Item key="2"><Link to={"/"}>Dash Board</Link></Menu.Item>
+                <Menu.Item key="3"><Link to={"/admin"}>Submit Task</Link></Menu.Item>
+                <Menu.Item key="4">Validate</Menu.Item>
               </Menu>
           </Header>
             <Content style={{ padding: '0 50px' }}>
@@ -66,7 +66,7 @@ class Admin extends Component{
             </Content>
               <p>   rules: </p>
             <Footer style={{ textAlign: 'center' }}>
-              Ready Player One -- Oasis
+                Well Fare for our city
             </Footer>
         </Layout>
 

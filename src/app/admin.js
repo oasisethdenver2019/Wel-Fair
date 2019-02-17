@@ -42,10 +42,10 @@ class Admin extends Component{
                 defaultSelectedKeys={['3']}
                 style={{ lineHeight: '64px' }}
               >
-                <Menu.Item key="1"><Link to={"/about"}>Score Board</Link></Menu.Item>
-                <Menu.Item key="2"><Link to={"/"}>Main Game</Link></Menu.Item>
-                <Menu.Item key="3">Admin</Menu.Item>
-                <Menu.Item key="4"><Link to={"/ipfs"}>Key Maker</Link></Menu.Item>
+                <Menu.Item key="1"><Link to={"/about"}>Task Status</Link></Menu.Item>
+                <Menu.Item key="2"><Link to={"/"}>Dash Board</Link></Menu.Item>
+                <Menu.Item key="3">Submit Task</Menu.Item>
+                <Menu.Item key="4"><Link to={"/ipfs"}>Validate</Link></Menu.Item>
               </Menu>
           </Header>
             <Content style={{ padding: '0 50px' }}>
@@ -56,9 +56,9 @@ class Admin extends Component{
               <br />
               <div>
                 <Avatar shape="square" size="large" icon="user" />
-                <p>the admin at current round is :{this.state.admin}</p>
+                <p>your address is :{this.state.admin}</p>
                 <br />
-                <p>if that is your address, that means you can kill, or refresh the game! Below is only for Admin</p>
+                <p>You can submit your Task request here</p>
               </div>
               <br />
               <RegistrationForm/>
@@ -66,7 +66,7 @@ class Admin extends Component{
             </Content>
               <p>   rules: </p>
             <Footer style={{ textAlign: 'center' }}>
-              Ready Player One -- Oasis
+               Well Fare for our city
             </Footer>
         </Layout>
 

@@ -4,6 +4,7 @@ var ReactDOM = require('react-dom');
 var createReactClass = require('create-react-class');
 import { Router, Route, browserHistory, Link} from 'react-router';
 
+
 //design elements
 import { Layout,  Button, notification, Menu, Breadcrumb, Input} from 'antd';
 const { Header, Content, Footer } = Layout;
@@ -85,17 +86,17 @@ class GameComponent extends Component{
                 defaultSelectedKeys={['2']}
                 style={{ lineHeight: '64px' }}
               >
-                <Menu.Item key="1"><Link to={"/about"}>Score Board</Link></Menu.Item>
-                <Menu.Item key="2">Main Game</Menu.Item>
-                <Menu.Item key="3"><Link to={"/admin"}>Admin</Link></Menu.Item>
-                <Menu.Item key="4"><Link to={"/ipfs"}>Key Maker</Link></Menu.Item>
+                <Menu.Item key="1"><Link to={"/about"}>Task Status</Link></Menu.Item>
+                <Menu.Item key="2">Dash Board</Menu.Item>
+                <Menu.Item key="3"><Link to={"/admin"}>Submit Task</Link></Menu.Item>
+                <Menu.Item key="4"><Link to={"/ipfs"}>Validate</Link></Menu.Item>
               </Menu>
           </Header>
             <Content style={{ padding: '0 50px' }}>
               <Breadcrumb style={{ margin: '16px 0' }}>
                 <Breadcrumb.Item>{this.state.txStatus}</Breadcrumb.Item>
               </Breadcrumb>
-              <div style={{ background: '#fff', padding: 24, minHeight: 280 }}>
+              {/* <div style={{ background: '#fff', padding: 24, minHeight: 280 }}>
               <Payeth pay={this.pay} />
               <p>click to pay</p>
               <Button type="primary" onClick={this.getfirstQuestion}>See first question</Button>
@@ -110,11 +111,11 @@ class GameComponent extends Component{
               <br />
               <br />
               <Search placeholder="input final answear" enterButton="Final question" size="large" onSearch={value => this.onSubmit(value)}/>
-              </div>
+              </div> */}
             </Content>
               <p>   rules: </p>
             <Footer style={{ textAlign: 'center' }}>
-              Ready Player One -- Oasis
+               Well Fare for our city
             </Footer>
         </Layout>
 
