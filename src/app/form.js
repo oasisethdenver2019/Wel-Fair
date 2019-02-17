@@ -6,7 +6,7 @@ import { Form, Row, Col, Input, Button, Icon } from 'antd';
 const FormItem = Form.Item;
 
 // Smart Contract
-const contractAddress = '0xdb343f9a9260e28bb11ae2ee10192ba1ff1a26ce';
+const contractAddress = '0x3e6eba20c93cbc2ba817b2cfa520044eea345e6e';
 const abi = require('../../Contract/abi');
 const mycontract = web3.eth.contract(abi);
 const myContractInstance = mycontract.at(contractAddress);
@@ -43,14 +43,14 @@ class AdvancedSearchForm extends React.Component {
         console.log(err)}
       else{
         //console.log(web3.toHex(answer));
-        var getData = myContractInstance.gameSet.getData(web3.toHex(values[Object.keys(values)[0]]),
+        var getData = myContractInstance.SubmitBounty.getData(web3.toHex(values[Object.keys(values)[0]]),
                                                          web3.toHex(values[Object.keys(values)[1]]),
-                                                         web3.toHex(values[Object.keys(values)[2]]),
-                                                         web3.toHex(values[Object.keys(values)[3]]),
-                                                         web3.toHex(values[Object.keys(values)[4]]),
-                                                         web3.toHex(values[Object.keys(values)[5]]),
-                                                         web3.toHex(values[Object.keys(values)[6]]));
-         web3.eth.sendTransaction({from: web3.eth.accounts[0], to: contractAddress, data:getData},(err, res) =>{
+                                                         Number(values[Object.keys(values)[2]]));
+        console.log(web3.toHex(values[Object.keys(values)[0]]),
+        web3.toHex(values[Object.keys(values)[1]]),
+        Number(values[Object.keys(values)[2]]));
+
+         web3.eth.sendTransaction({from: web3.eth.accounts[0], to: contractAddress, data:getData, value: '20000000000000000'},(err, res) =>{
           this.setState({txHash:res, txStatus:'new transaction sent'});
           console.log(res);
         }).bind(this);

@@ -12,7 +12,7 @@ import 'antd/dist/antd.min.css';
 var Link = require('react-router').Link;
 const _ = require('lodash');
 
-const contractAddress = '0xdb343f9a9260e28bb11ae2ee10192ba1ff1a26ce';
+const contractAddress = '0x3e6eba20c93cbc2ba817b2cfa520044eea345e6e';
 const abi = require('../../Contract/abi');
 const mycontract = web3.eth.contract(abi);
 const myContractInstance = mycontract.at(contractAddress);

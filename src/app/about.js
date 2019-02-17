@@ -11,15 +11,16 @@ var Link = require('react-router').Link;
 const _ = require('lodash');
 
 // SmatContract
-const contractAddress = '0xdb343f9a9260e28bb11ae2ee10192ba1ff1a26ce';
+const contractAddress = '0x3e6eba20c93cbc2ba817b2cfa520044eea345e6e';
 const abi = require('../../Contract/abi');
 const mycontract = web3.eth.contract(abi);
 const myContractInstance = mycontract.at(contractAddress);
 
 // Dataparsing
 function parseJson(Resp){
+  console.log(Resp);
   const results = [];
-  var parameters = ['address','points'];
+  var parameters = ['task','location','incent','owner','status'];//web3.toAscii(res)
   Object.keys(Resp).forEach((paramValues, paramIndex) => {
     const paramName = parameters[paramIndex];
     Resp[paramValues].forEach((paramValue, itemIndex) =>{
@@ -28,8 +29,23 @@ function parseJson(Resp){
         item[paramName] = paramValue;
       }
       else if(paramIndex == 1){
+        item[paramName] = paramValue;
+      }
+
+      else if(paramIndex == 2){
         item[paramName] = paramValue.c[0];
       }
+
+      else if(paramIndex == 3){
+        item[paramName] = paramValue;
+      }
+
+      else if(paramIndex == 4){
+        if (paramValue.c[0] == 0){item[paramName] = "open";}
+        if (paramValue.c[0] == 1){item[paramName] = "in progress";}
+        if (paramValue.c[0] == 2){item[paramName] = "closed";}
+      }
+
       results[itemIndex] = item;
     })
   })
@@ -89,9 +105,11 @@ class About extends Component{
                   <List.Item>
                     <List.Item.Meta
                       avatar={<Avatar src="https://i.pinimg.com/236x/59/cb/10/59cb10c177662eaf625b2cb80da3d4dd.jpg" />}
-                      title={<a href={"https://rinkeby.etherscan.io/address/"+item.address}>{item.address}</a>}
-                      description={"this player has points of " + item.points}
+                      title={<a href={"https://rinkeby.etherscan.io/address/"+item.address}>{"Location of the bounty is "+ web3.toAscii(item.location) + " The Bounty task is: " + web3.toAscii(item.task) }</a>}
+                      description={ " The Bounty responser is "+ item.owner }
                     />
+                    {"the status is " + item.status }
+                    
                   </List.Item>
                 )}
               />
@@ -120,20 +138,20 @@ class About extends Component{
     }
 
   async componentWillMount() {
-       await myContractInstance.getPlayerScore(web3.eth.accounts[0],function(err,result){
-       var res = result;
-       var score = res.c[0];
-       this.setState( {score});
-    }.bind(this));
+    //    await myContractInstance.getPlayerScore(web3.eth.accounts[0],function(err,result){
+    //    var res = result;
+    //    var score = res.c[0];
+    //    this.setState( {score});
+    // }.bind(this));
 
-      await myContractInstance.getKey(web3.eth.accounts[0],function(err,result){
-      var res = result;
-      var key1 = web3.toAscii(res[0]);
-      var key2 = web3.toAscii(res[1]);
-      this.setState( {key1, key2});
-   }.bind(this));
+  //     await myContractInstance.getKey(web3.eth.accounts[0],function(err,result){
+  //     var res = result;
+  //     var key1 = web3.toAscii(res[0]);
+  //     var key2 = web3.toAscii(res[1]);
+  //     this.setState( {key1, key2});
+  //  }.bind(this));
 
-     await myContractInstance.getAllscore(function(err,result){
+     await myContractInstance.getAllbounty(function(err,result){
      var res = result;
      var answerInJson = parseJson(res);
      var data = answerInJson;
