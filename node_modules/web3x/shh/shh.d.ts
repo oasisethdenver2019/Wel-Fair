@@ -1,0 +1,31 @@
+import { EthereumProvider } from '../providers/ethereum-provider';
+import { Subscription } from '../subscriptions';
+export declare class Shh {
+    private provider;
+    readonly request: ShhRequestPayloads;
+    constructor(provider: EthereumProvider);
+    private send;
+    getVersion(): Promise<any>;
+    getInfo(): Promise<any>;
+    setMaxMessageSize(size: number): Promise<any>;
+    setMinPoW(pow: number): Promise<any>;
+    markTrustedPeer(enode: string): Promise<any>;
+    newKeyPair(): Promise<any>;
+    addPrivateKey(privateKey: string): Promise<any>;
+    deleteKeyPair(id: string): Promise<any>;
+    hasKeyPair(id: string): Promise<any>;
+    getPublicKey(id: string): Promise<any>;
+    getPrivateKey(id: string): Promise<any>;
+    newSymKey(): Promise<any>;
+    addSymKey(symKey: string): Promise<any>;
+    generateSymKeyFromPassword(password: string): Promise<any>;
+    hasSymKey(id: string): Promise<any>;
+    getSymKey(id: string): Promise<any>;
+    deleteSymKey(id: string): Promise<any>;
+    newMessageFilter(options: SubscriptionOptions): Promise<any>;
+    getFilterMessages(id: string): Promise<any>;
+    deleteMessageFilter(id: string): Promise<any>;
+    post(post: Post): Promise<any>;
+    subscribeMessages(options: SubscriptionOptions): Subscription<string>;
+    subscribe(type: 'messages', options: SubscriptionOptions): Subscription<any>;
+}

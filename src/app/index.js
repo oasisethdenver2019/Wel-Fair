@@ -3,6 +3,21 @@ import React, {Component} from 'react';
 var ReactDOM = require('react-dom');
 var createReactClass = require('create-react-class');
 import { Router, Route, browserHistory, Link} from 'react-router';
+import {RequestElement, RequestData, QROptions,Action} from '@bloomprotocol/share-kit-react';
+
+const requestData = {
+  action: Action.attestation,
+  token: 'de82d893-b664-480a-8f06-78dddac1ad29',
+  org_name: 'Bloom',
+  url: 'https://receive-kit.bloom.co/api/receive',
+  org_logo_url: 'https://bloom.co/images/notif/bloom-logo.png',
+  org_usage_policy_url: 'https://bloom.co/legal/terms',
+  org_privacy_policy_url: 'https://bloom.co/legal/privacy',
+  types: [ 'email']
+};                               
+
+const buttonCallbackUrl = 'http://localhost:8080/admin';
+
 
 //design elements
 import { Layout,  Button, notification, Menu, Breadcrumb, Input} from 'antd';
@@ -22,6 +37,7 @@ const contractAddress = '0xdb343f9a9260e28bb11ae2ee10192ba1ff1a26ce';
 const abi = require('../../Contract/abi');
 const mycontract = web3.eth.contract(abi);
 const myContractInstance = mycontract.at(contractAddress);
+
 
 
 // metaMask listener
@@ -96,6 +112,15 @@ class GameComponent extends Component{
                 <Breadcrumb.Item>{this.state.txStatus}</Breadcrumb.Item>
               </Breadcrumb>
               <div style={{ background: '#fff', padding: 24, minHeight: 280 }}>
+              <RequestElement
+    requestData={requestData}
+    buttonCallbackUrl="http://localhost:8080/admin"
+    qrOptions={{
+      size: 256,
+      hideLogo: false,
+      fgColor: '#6067f1'
+    }}
+  />
               <Payeth pay={this.pay} />
               <p>click to pay</p>
               <Button type="primary" onClick={this.getfirstQuestion}>See first question</Button>
