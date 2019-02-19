@@ -1,5 +1,5 @@
 # Summary
-Wel-Fair is a Participation economy platform to empower underprivileged citizens to give back to their communities and get rewarded for their contributions. We aim to create hubs where these decentralized networks can come together for solidarity and support.
+Wel-Fair is a Participation economy platform to empower underprivileged citizens to give back to their communities and get rewarded for their contributions. We aim to create hubs where decentralized networks can come together for solidarity and support.
 
 ## References for details
 https://kauri.io/article/76125c8a2dd543eb8fa2076a46be56f3/wel-fair
